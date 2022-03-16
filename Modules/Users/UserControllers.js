@@ -4,7 +4,6 @@ const util = require("util");
 const User = require("./UserModel");
 
 const asynSign = util.promisify(jwt.sign);
-// const asyncVerify = util.promisify(jwt.verify);
 
 const signUp = async (req, res, next) => {
 	const { username, email, password } = req.body;
