@@ -14,8 +14,8 @@ const {
 userRouter.get("/", verifyToken, getUsers);
 userRouter.get("/:id", verifyToken, profile);
 //
-userRouter.post("/register", passwordHash, signUp);
-userRouter.post("/login", login);
+userRouter.post("/signUp", passwordHash, signUp);
+userRouter.post("/signIn", login);
 //update
 userRouter.patch("/:id", verifyToken, validate, passwordHash, updateUser);
 userRouter.delete("/:id", verifyToken, deleteUser);

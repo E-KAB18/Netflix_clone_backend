@@ -4,11 +4,32 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const userRouter = require("./Modules/Users/UserRoutes");
+const movieRouter = require("./Modules/Movies/MovieRoutes")
 
 const port = 3000;
 app.use(express.json());
 
+app.use(function (req, res, next) {
+	const allowedOrigins = [
+		"http://localhost:3000/",
+		"http://localhost:3001/",
+		"http://localhost:3002/",
+	];
+	const origin = req.headers.origin;
+	if (allowedOrigins.includes(origin)) {
+		res.header("Access-Control-Allow-Origin", origin);
+	}
+
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
+});
+
+
 app.use("/api/users", userRouter);
+app.use("/api/movies", movieRouter);
 
 mongoose.connect("mongodb://localhost:27017/netflix", (err) => {
 	if (err) process.exit(1);
