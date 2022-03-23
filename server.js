@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require('cors')
 require("dotenv").config();
 
 const userRouter = require("./Modules/Users/UserRoutes");
@@ -8,6 +9,7 @@ const movieRouter = require("./Modules/Movies/MovieRoutes")
 
 const port = 3000;
 app.use(express.json());
+app.use(cors())
 
 app.use(function (req, res, next) {
 	const allowedOrigins = [
