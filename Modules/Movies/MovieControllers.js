@@ -3,9 +3,9 @@ const Movie = require("./MovieModel");
 
 const getAll = async (req, res, next) => {
     try {
-        const {movie, genere, rate, year} = req.query
+        const {type, genere, rate, year} = req.query
         let movieList=[];
-        if(movie){
+        if(type === "movie"){
             if(genere){
                 movieList = await Movie.find({isSeries:false, genere})
                 res.send(movieList);
@@ -93,7 +93,6 @@ const deleteOne = async (req, res, next) => {
         next(error);
     }
 };
-
 
 
 module.exports = { getAll, getByID, addNew, updateOne, deleteOne }
