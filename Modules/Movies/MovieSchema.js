@@ -25,13 +25,21 @@ const MovieSchema = new Schema({
     },
 
     year: {
-        type: Number
+        type: Date
     },
     limit: {
         type: Number
     },
     genere: {
         type: String,
+        enum: ["Action",
+            "Comedy",
+            "Drama",
+            "Fantasy",
+            "Horror",
+            "Mystery",
+            "Romance",
+            "Thriller"]
     },
     isSeries: {
         type: Boolean,
