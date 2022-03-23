@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
 			process.env.SECRET_KEY
 		);
 		// { expiresIn: process.env.JWT_EXPIRES_IN }
-		res.send({ token, id: uID });
+		res.send({ token, user });
 	} catch (error) {
 		error.statusCode = 500;
 		next(error);
