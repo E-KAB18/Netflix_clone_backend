@@ -6,7 +6,7 @@ require("dotenv").config();
 const userRouter = require("./Modules/Users/UserRoutes");
 const movieRouter = require("./Modules/Movies/MovieRoutes")
 
-const port = 3000;
+const port = 8000;
 app.use(express.json());
 
 app.use(function (req, res, next) {
