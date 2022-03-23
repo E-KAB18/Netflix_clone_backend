@@ -28,13 +28,13 @@ const login = async (req, res, next) => {
 		const { password: originalHashedPassword } = user;
 		const result = await bcrypt.compare(password, originalHashedPassword);
 		if (!result) throw new Error("invalid email or password");
-
+		const { id: uID } = user;
 		const token = await asynSign(
-			{ id: user._id.toString(), isAdmin: user.isAdmin },
+			{ id: uID, isAdmin: user.isAdmin },
 			process.env.SECRET_KEY
 		);
 		// { expiresIn: process.env.JWT_EXPIRES_IN }
-		res.send({ token });
+		res.send({ token, id: uID });
 	} catch (error) {
 		error.statusCode = 500;
 		next(error);
