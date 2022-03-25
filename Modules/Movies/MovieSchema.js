@@ -28,7 +28,7 @@ const MovieSchema = new Schema({
         type: Date
     },
     limit: {
-        type: Number
+        type: String
     },
     genere: {
         type: String,

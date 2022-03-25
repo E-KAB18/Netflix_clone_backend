@@ -52,6 +52,33 @@ const getAll = async (req, res, next) => {
     }
 };
 
+
+const getRandom = async (req, res, next) => {
+    try {
+        const { type } = req.query;
+        if (type) {
+            let isSeries = type === "series" ? true : false;
+            const count = (await Movie.find({ isSeries: isSeries })).length
+            const random = Math.ceil(Math.random() * count)
+            const movie = await Movie.findOne({ isSeries: isSeries }).skip(random);
+            res.send(movie);
+        }
+        else {
+
+            const count = (await Movie.find()).length
+            const random = Math.ceil(Math.random() * count)
+            const movie = await Movie.findOne().skip(random);
+            res.send(movie);
+        }
+
+    } catch (error) {
+        error.statusCode = 403;
+        next(error);
+    }
+};
+
+
+
 const getByID = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -159,7 +186,7 @@ const deleteOne = async (req, res, next) => {
     }
 };
 
-module.exports = { getAll, getByID, addNew, updateOne, deleteOne };
+module.exports = { getAll, getByID, addNew, updateOne, deleteOne, getRandom };
 
 // {
 // 	"title": "superman3"
