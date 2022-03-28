@@ -29,6 +29,7 @@ const userSchema = new Schema({
   },
   userList: {
     type: Array,
+    default:[]
   },
   isAdmin: {
     type: Boolean,
