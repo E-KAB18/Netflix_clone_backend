@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 const MovieSchema = new Schema({
     title: {
         type: String,
-        required: true, unique: true
+        required: true,
+        unique: true,
     },
     desc: {
         type: String,
@@ -21,7 +22,7 @@ const MovieSchema = new Schema({
     },
 
     rate: {
-        type: String,
+        type: Number,
     },
 
     year: {

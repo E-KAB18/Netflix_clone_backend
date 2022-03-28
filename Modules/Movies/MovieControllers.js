@@ -50,33 +50,29 @@ const getAll = async (req, res, next) => {
         error.statusCode = 403;
         next(error);
     }
-};
 
+};
 
 const getRandom = async (req, res, next) => {
     try {
         const { type } = req.query;
         if (type) {
             let isSeries = type === "series" ? true : false;
-            const count = (await Movie.find({ isSeries: isSeries })).length
-            const random = Math.ceil(Math.random() * count)
+            const count = (await Movie.find({ isSeries: isSeries })).length;
+            const random = Math.ceil(Math.random() * count);
             const movie = await Movie.findOne({ isSeries: isSeries }).skip(random);
             res.send(movie);
-        }
-        else {
-
-            const count = (await Movie.find()).length
-            const random = Math.ceil(Math.random() * count)
+        } else {
+            const count = (await Movie.find()).length;
+            const random = Math.ceil(Math.random() * count);
             const movie = await Movie.findOne().skip(random);
             res.send(movie);
         }
-
     } catch (error) {
         error.statusCode = 403;
         next(error);
     }
 };
-
 
 const getByID = async (req, res, next) => {
     try {
@@ -130,6 +126,7 @@ const addNew = async (req, res, next) => {
         error.statusCode = 500;
         next(error);
     }
+
 };
 
 const updateOne = async (req, res, next) => {
