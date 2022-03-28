@@ -14,21 +14,21 @@ const getAll = async (req, res, next) => {
 
             }
             else if (type && rate) {
-                movieList = await Movie.find({ isSeries: isSeries }).sort({ rate: -1 }).limit(3);
+                movieList = await Movie.find({ isSeries: isSeries }).sort({ rate: -1 }).limit(10);
                 res.send(movieList);
 
             }
             else if (type && year) {
-                movieList = await Movie.find({ isSeries: isSeries }).sort({ year: -1 }).limit(3);
+                movieList = await Movie.find({ isSeries: isSeries }).sort({ year: -1 }).limit(10);
                 res.send(movieList);
 
             }
             else if (rate) {
-                movieList = await Movie.find().sort({ rate: -1 }).limit(4);
+                movieList = await Movie.find().sort({ rate: -1 }).limit(10);
                 res.send(movieList);
             }
             else if (year) {
-                movieList = await Movie.find().sort({ year: -1 }).limit(4);
+                movieList = await Movie.find().sort({ year: -1 }).limit(10);
                 res.send(movieList);
             }
 
@@ -78,7 +78,6 @@ const getRandom = async (req, res, next) => {
 };
 
 
-
 const getByID = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -106,6 +105,9 @@ const addNew = async (req, res, next) => {
                 isSeries,
             } = req.body;
 
+            // const data = req.body
+            // const createdMovie = await Movie.insertMany(data);
+
             const newMovie = new Movie({
                 title,
                 desc,
@@ -119,6 +121,7 @@ const addNew = async (req, res, next) => {
                 isSeries,
             });
             const createdMovie = await newMovie.save();
+
             res.send(createdMovie);
         } else {
             throw new Error(`You are not allowed to add Movies`);
@@ -188,15 +191,3 @@ const deleteOne = async (req, res, next) => {
 
 module.exports = { getAll, getByID, addNew, updateOne, deleteOne, getRandom };
 
-// {
-// 	"title": "superman3"
-// 	, "desc":"tesct desc"
-// 	, "img":"lalalala"
-// 	, "trailer": "lalalala"
-// 	, "video":"lalalala"
-// 	, "year":2021
-// 	, "rate":6.9
-// 	, "limit":16
-// 	, "genere":"action"
-
-// }

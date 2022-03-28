@@ -88,6 +88,50 @@ const updateUser = async (req, res, next) => {
 		next(error);
 	}
 };
+
+
+
+const updateUser = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		const { username, email, password, userListItem } = req.body;
+
+		if (req.userPayload.id === id || req.userPayload.isAdmin) {
+
+			if (userListItem) {
+				const { userList } = await User.findById(id);
+				const exists = userList.some(item => item._id === userListItem._id);
+				userList = exists ? userList.filter(item => item._id !== userListItem._id) : [...userList, userListItem];
+			}
+
+			// const existItem = userList.findIndex(
+			// 	(list) => list._id === userListItem._id
+			// );
+			// if (userListItem) {
+			// 	if (existItem === -1) {
+			// 		userList.push(userListItem);
+			// 	} else {
+			// 		userList = userList.filter((list) => list._id !== userListItem._id);
+			// 	}
+			// }
+
+			const updatedUsers = await User.findByIdAndUpdate(
+				id,
+				{ username, email, password, userList },
+				{ new: true }
+			);
+			res.send(updatedUsers);
+		} else {
+			throw new Error(`You are not allowed to update this profile!`);
+		}
+	} catch (error) {
+		error.statusCode = 403;
+		next(error);
+	}
+};
+
+
+
 const deleteUser = async (req, res, next) => {
 	try {
 		const { id } = req.params;
