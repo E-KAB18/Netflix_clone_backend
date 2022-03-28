@@ -33,16 +33,7 @@ const MovieSchema = new Schema({
   },
   genere: {
     type: String,
-    enum: [
-      "Action",
-      "Comedy",
-      "Drama",
-      "Fantasy",
-      "Horror",
-      "Mystery",
-      "Romance",
-      "Thriller",
-    ],
+    enum: ["Action", "Comedy", "Drama", "Horror", "Romance"],
   },
   isSeries: {
     type: Boolean,

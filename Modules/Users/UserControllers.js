@@ -72,8 +72,22 @@ const profile = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { username, email, password, userList } = req.body;
+    const { username, email, password, userListItem } = req.body;
+
     if (req.userPayload.id === id || req.userPayload.isAdmin) {
+      let { userList } = await User.findById(id);
+
+      const existItem = userList.findIndex(
+        (list) => list._id === userListItem._id
+      );
+      if (userListItem) {
+        if (existItem === -1) {
+          userList.push(userListItem);
+        } else {
+          userList = userList.filter((list) => list._id !== userListItem._id);
+        }
+      }
+
       const updatedUsers = await User.findByIdAndUpdate(
         id,
         { username, email, password, userList },
